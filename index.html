@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    <script>
+        class ListSalaries {
+    constructor() {
+        this.salaries = [];
+    }
+}
+
+ListSalaries.prototype.loadSalaries = function () {
+    for (let i = 1; i <= 5; i++) {
+        let salarie = parseFloat(prompt("Ingrese el sueldo del operario" + i));
+        this.salaries.push(salarie);
+    }
+};
+
+ListSalaries.prototype.printSalaries = function () {
+    console.log("Los sueldos de los operarios son:");
+    for (let i = 0 ; i < this.salaries.length ; i++) {
+        console.log("Operario " + (i + 1) + ": $" + this.salaries[i]);
+    }
+};
+
+let vector = new ListSalaries();
+vector.loadSalaries();
+vector.printSalaries()
+    </script>
+    </body>
+</html>
