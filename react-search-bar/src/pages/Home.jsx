@@ -1,11 +1,12 @@
-import React from 'react'
-import Card from '../components/Card/Card'
+import React from 'react';
+import Cards from '../components/Cards/Cards';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 export default function Home() {
   return (
     <div>
-        <p className='text-3xl'>Home</p>
-        <Card />
+        <SearchBar />
+        <Cards />
     </div>
   )
 }
