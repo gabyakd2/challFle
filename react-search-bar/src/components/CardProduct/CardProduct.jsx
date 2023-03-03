@@ -1,11 +1,11 @@
 import React from "react";
-import { Card, Container, Col } from "react-bootstrap";
+import { Card, Container, Col, Row } from "react-bootstrap";
 import style from "./Card.module.css";
 
 export default function CardProduct({ image, title, code, price }) {
   return (
     <Card className={`border-0 ${style.cardProduct}`}>
-      <div className="row">
+      <Row>
         <Col md={6}>
           <Card.Img src={image} alt={title} className={style.imgCard}/>
         </Col>
@@ -20,7 +20,7 @@ export default function CardProduct({ image, title, code, price }) {
             </Card.Text>
           </Card.Body>
         </Col>
-      </div>
+      </Row>
     </Card>
   );
 }

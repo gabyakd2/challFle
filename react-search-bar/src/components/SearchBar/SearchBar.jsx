@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { products } from "../../mock/products.json"
 import InputGroup from "react-bootstrap/InputGroup";
 import { Button, Container, Form } from "react-bootstrap";
-import style from "./SearchBar.module.css"
 
 export default function SearchBar({ productsList, setProductList, setIsLoading }) {
   const [input, setInput] = useState("");
