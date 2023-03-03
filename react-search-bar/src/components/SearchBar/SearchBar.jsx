@@ -1,69 +1,79 @@
 import React, { useState } from "react";
-import style from "./SearchBar.module.css";
-import { products } from "../../mock/products.json";
-import Cards from "../Cards/Cards";
+import { products } from "../../mock/products.json"
+import InputGroup from "react-bootstrap/InputGroup";
+import { Button, Container, Form } from "react-bootstrap";
+import style from "./SearchBar.module.css"
 
-export default function SearchBar({ productsList, setProductList }) {
+export default function SearchBar({ productsList, setProductList, setIsLoading }) {
   const [input, setInput] = useState("");
-  // console.log(productsList)
+  const auxProduct = products
 
   const handleInputChange = (e) => {
     e.preventDefault();
     setInput(e.target.value);
   };
 
+  const handleCloseInput = () => {
+    setProductList(auxProduct)
+    setInput('')
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
-    setInput("");
-    const filteredProducts = productsList.filter(({ title }) =>
-      title.toLowerCase().includes(input.toLowerCase())
-    );
-    if (input && (!filteredProducts || !filteredProducts.length)) {
-      alert("El articulo ingresado no existe");
-    } else if (!input) {
-      alert("Para poder buscar ingrese el nombre del producto");
-    } else {
-      setInput("");
-      setProductList(filteredProducts);
-    }
+    setIsLoading(true);
+    setTimeout(() => {
+      const filteredProducts = productsList.filter(({ title }) =>
+        title.toLowerCase().includes(input.toLowerCase())
+      );
+      if (input && (!filteredProducts || !filteredProducts.length)) {
+        alert("El articulo ingresado no existe");
+      } else if (!input) {
+        alert("Para poder buscar ingrese el nombre del producto");
+      } else {
+        setProductList(filteredProducts);
+      }
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
-    <form onSubmit={handleSearch}>
-      <div className="flex justify-center">
-        <div className={`mb-3 ${style.divNav}`}>
-          <div className="relative mb-4 flex w-full flex-wrap items-stretch">
-            <input
-              type="text"
-              className=" flex-auto rounded-l border border-solid border-neutral-300 bg-transparent px-3 py-1.5 font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary focus:text-neutral-700 dark:text-neutral-200"
-              placeholder="Buscar un articulo..."
-              value={input}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <button
-              className="absolute inset-y-0 right-0 flex items-center pr-3 bg-neutral-900"
-              type="submit"
-              id="button-addon1"
-              data-te-ripple-init
-              data-te-ripple-color="light"
+    <Container className="pt-3">
+      <Form onSubmit={handleSearch}>
+        <InputGroup>
+          <Form.Control
+            type="text"
+            value={input}
+            placeholder="Buscar un articulo..."
+            onChange={(e) => handleInputChange(e)}
+          />
+          <Button variant="dark" size="lg" type="submit" className="pb-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              fill="currentColor"
+              // className="mb-1"
+              viewBox="0 0 16 16"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="h-5 w-5"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Buscar
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+            <span className="fs-6 ms-2">Buscar</span>
+          </Button>
+        </InputGroup>
+      </Form>
+      {input.length ? (
+        <Button variant="dark" className="mt-2">
+          {input}{" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+            onClick={handleCloseInput}
+          >
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+          </svg>
+        </Button>
+      ) : null}
+    </Container>
   );
 }
