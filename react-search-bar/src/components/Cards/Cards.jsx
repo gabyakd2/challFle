@@ -1,14 +1,13 @@
-import React from "react";
-import { products } from "../../mock/products.json";
+import React, { useState } from "react";
 import Card from "../Card/Card";
 import style from "./Cards.module.css";
 
-export default function Cards() {
+export default function Cards({productsList}) {
   return (
-    <div>
-      <ul className={`flex flex-wrap justify-center ${style.divCards}`}>
-        {products?.map(({ id, title, code, price, image }) => (
-          <li key={id}>
+    <div className={style.products}>
+      <ul className={`${style.divCards}`}>
+        {productsList?.map(({ id, title, code, price, image }) => (
+          <li className={style.liCards} key={id}>
             <Card
               title={title}
               code={code}

@@ -1,0 +1,21 @@
+.products {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*.divCards {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            45%,
+            1fr
+        )
+    );
+    gap: 1rem;
+}*/
+.liCards {
+    display: flex;
+    /* flex-direction: column; */
+}
