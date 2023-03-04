@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { products } from "../../mock/products.json"
 import InputGroup from "react-bootstrap/InputGroup";
 import { Button, Container, Form } from "react-bootstrap";
+import swal from 'sweetalert';
 
 export default function SearchBar({ productsList, setProductList, setIsLoading }) {
   const [input, setInput] = useState("");
@@ -25,9 +26,10 @@ export default function SearchBar({ productsList, setProductList, setIsLoading }
         title.toLowerCase().includes(input.toLowerCase())
       );
       if (input && (!filteredProducts || !filteredProducts.length)) {
-        alert("El articulo ingresado no existe");
+        swal("Error", "El articulo ingresado no existe", "error");
+        setInput("")
       } else if (!input) {
-        alert("Para poder buscar ingrese el nombre del producto");
+        swal("Error", "Para poder buscar ingrese el nombre del producto", "error");
       } else {
         setProductList(filteredProducts);
       }
